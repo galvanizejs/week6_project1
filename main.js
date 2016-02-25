@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	$.ajax({
-		url: 'https://api.myjson.com/bins/20gec',
+		url: 'https://api.myjson.com/bins/3gobv',
 		type: 'GET',
 		data: {
 			format: 'json'
@@ -15,10 +15,14 @@ $(document).ready(function(){
 				var firstName = states[i].name;
 				var cap = states[i].capital;
 				var entered = states[i].enteredUnion;
-				var pop = states[i].population;
-				$('#states').append("<h3>" + firstName + "</h3><h4>" + cap + " - " + entered + " - " + pop + "</h4>");
+				var tree = states[i].symbols[0].tree;
+				var flag = states[i].symbols[1].flag;
+				$('#states').append("<h3>" + firstName + "</h3><h4>" + cap + " - " + entered + " - " + tree + "</h4>");
+				$('#states').append("<img src='"+ flag + "'></img>")
 				$('#states').append("<span id='pics'>" + "</span>");
 				document.getElementById("pics").id = firstName;
+				$('#states').append("<span id='bird'>" + "</span>");
+				document.getElementById("bird").id = states[i].symbols[0].bird.split(" ")[0];
 				afterLoad();
 			}
 		}
@@ -36,7 +40,7 @@ $(document).ready(function(){
 			$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
 				{
 					api_key: "4bc9fb038f6eaa557f946ead1eef1bd5",
-					tags: "sunset",
+					tags: "sunset, " + stateName,
 					format: "json"
 				},
 				function(data) {
