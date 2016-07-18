@@ -17,9 +17,27 @@ $(document).ready(function(){
 		success: function(results){
 			var states = results.data;
 			for(i=0; i < states.length; i++) {
-				var firstName = states[i].name;
-				$('#states').append("<h3>" + firstName + "</h3>");
+				var name = states[i].name;
+				$('#states').append("<h3>" + name + "</h3>");
 			}
 		}
 	})
+
+	function clickPic(){
+		$("body").on('click', 'img', function(){
+			var stateName = $(this).closest('div').attr("id")
+			console.log(stateName)
+			$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+				{
+					api_key: "4bc9fb038f6eaa557f946ead1eef1bd5",
+					tags: "sunset, " + stateName,
+					format: "json"
+				},
+				function(data) {
+					console.log(data.items)
+					console.log("img#" + stateName)
+			});
+		});
+	}
+	clickPic();
 });
